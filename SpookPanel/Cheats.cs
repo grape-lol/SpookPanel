@@ -16,6 +16,7 @@ namespace SpookPanel
         private Color tabActiveColor = new Color(0.25f, 0.25f, 0.25f);
         private Color textColor = Color.white;
         public bool staminaBool = false;
+        public bool oxygenBool = false;
 
         public void OnGUI()
         {
@@ -92,14 +93,32 @@ namespace SpookPanel
                 MetaProgressionHandler.ClearAllUnlockedHatsHats();
             }
 
+            oxygenBool = GUILayout.Toggle(oxygenBool, "Infinite Oxygen", GUILayout.Height(30));
+            {
+                if (oxygenBool == true)
+                {
+                    if (Player.localPlayer != null)
+                    {
+                        Player.localPlayer.data.remainingOxygen = Player.localPlayer.data.maxOxygen;
+                    }
+                }
+            }
+
             staminaBool = GUILayout.Toggle(staminaBool, "Infinite Stamina", GUILayout.Height(30));
             {
                 if (staminaBool == true)
                 {
                     if (Player.localPlayer != null)
                     {
-                        Player.localPlayer.data.remainingOxygen = Player.localPlayer.data.maxOxygen;
-                        // Player.localPlayer.data.staminaDepleated = false;
+                        Player.localPlayer.data.staminaDepleated = false;
+                        Player.localPlayer.data.currentStamina = 10f;
+                    }
+                    else
+                    {
+                        if(Player.localPlayer != null)
+                        {
+                            Player.localPlayer.data.staminaDepleated = true;
+                        }
                     }
                 }
             }
