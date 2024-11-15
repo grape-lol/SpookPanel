@@ -84,7 +84,10 @@ namespace SpookPanel
             if (GUILayout.Button("Unlock All Hats", GUILayout.Height(30)))
             {
                 MetaProgressionHandler.UnlockAllHats();
-                Debug.Log("All hats unlocked successfully.");
+            }
+            if (GUILayout.Button("Clear All Hats", GUILayout.Height(30)))
+            {
+                MetaProgressionHandler.ClearAllUnlockedHatsHats();
             }
         }
 
