@@ -1,6 +1,6 @@
-﻿using Photon.Realtime;
-using UnityEngine;
+﻿using UnityEngine;
 using Zorro.Core.CLI;
+using Vector2 = UnityEngine.Vector2;
 
 namespace SpookPanel
 {
@@ -15,6 +15,7 @@ namespace SpookPanel
         private Color backgroundColor = new Color(0.12f, 0.12f, 0.12f);
         private Color tabActiveColor = new Color(0.25f, 0.25f, 0.25f);
         private Color textColor = Color.white;
+        public bool staminaBool = false;
 
         public void OnGUI()
         {
@@ -85,9 +86,22 @@ namespace SpookPanel
             {
                 MetaProgressionHandler.UnlockAllHats();
             }
+
             if (GUILayout.Button("Clear All Hats", GUILayout.Height(30)))
             {
                 MetaProgressionHandler.ClearAllUnlockedHatsHats();
+            }
+
+            staminaBool = GUILayout.Toggle(staminaBool, "Infinite Stamina", GUILayout.Height(30));
+            {
+                if (staminaBool == true)
+                {
+                    if (Player.localPlayer != null)
+                    {
+                        Player.localPlayer.data.remainingOxygen = Player.localPlayer.data.maxOxygen;
+                        // Player.localPlayer.data.staminaDepleated = false;
+                    }
+                }
             }
         }
 
